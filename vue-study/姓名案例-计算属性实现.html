@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>姓名案例-计算属性实现</title>
+    <script type="text/javascript" src="../js/vue.js"></script> <!-- vue 路径-->
+</head>
+
+<body>
+    <!-- 
+        计算属性：
+            1. 定义：要用的属性不存在，要通过已有属性计算得来
+            2. 原理：底层借助了Object.difineProperty方法提供的getter和setter
+            3. get函数什么时候执行
+                (1) 初次读取时会执行一次
+                (2) 当依赖的数据发生改变时会被再次调用
+            4. 优势：与methods实现相比，内部有缓存机制（复用），效率更高，调试方便
+            5. 备注
+                (1) 计算属性最终会出现在vm上，直接读取使用即可
+                (2) 如果计算属性要被修改，那必须写set函数去响应修改，
+                    且set中要引起计算时依赖的数据发生变化
+     -->
+    <div id="app">
+        <!-- 准备好一个容器 -->
+        姓：<input type="text " v-model="firstName"><br>
+        名：<input type="text" v-model="lastName"><br>
+        全名：{{fullName}}
+    </div>
+
+    <script>
+        //创建Vue实例,得到 ViewModel
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                firstName: '张',
+                lastName: '三'
+            },
+            methods: {},
+            computed: {
+                // 简写形式：fullName当成一个函数进行使用
+                fullName() {
+                    return this.firstName + '-' + this.lastName
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

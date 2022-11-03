@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script type="text/javascript" src="../js/vue.js"></script>  <!-- vue 路径-->
+</head>
+
+<body>
+    <div id ="app">
+        <!-- 准备好一个容器 -->
+        姓：<input type="text " v-model="firstName"><br>
+        名：<input type="text" v-model="lastName"><br>
+        全名：{{fullName()}}
+    </div>
+
+    <script>
+     //创建Vue实例,得到 ViewModel
+     const vm = new Vue({
+        el: '#app',
+        data: {
+            firstName:'张',
+            lastName:'三'
+        },
+        methods: {
+            fullName() {
+                return this.firstName + '-' + this.lastName
+            }
+        }
+     });
+    </script>
+</body>
+
+</html>

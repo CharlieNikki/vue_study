@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script type="text/javascript" src="../js/vue.js"></script> <!-- vue 路径-->
+</head>
+
+<body>
+    <!-- 
+        vue中的事件修饰符
+            1. prevent:阻止默认事件
+            2. stop:阻止事件冒泡
+            3. once:事件只会触发一次
+
+            4. capture:使用事件的捕获模式
+            5. self:只有event.targets是当前操作的元素时才会触发事件
+            6. passive:事件的默认行为立即执行，无需等待事件回调执行完毕
+     -->
+    <div id="app">
+
+    </div>
+
+    <script>
+        //创建Vue实例,得到 ViewModel
+        const vm = new Vue({
+            el: '#app',
+            data: {},
+            methods: {}
+        });
+    </script>
+</body>
+
+</html>

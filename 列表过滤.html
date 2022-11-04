@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>列表过滤</title>
+    <script type="text/javascript" src="../js/vue.js"></script>  <!-- vue 路径-->
+</head>
+
+<body>
+    <!-- 
+        
+     -->
+    <div id ="app">
+        <h2>人员列表</h2>
+        <input type="text" placeholder="请输入名字" v-model="keyWord">
+        <ul>
+            <li v-for="(p, index) in filtPersons" :key="p.id">
+                {{p.name}}-{{p.age}}-{{p.sex}}
+            </li>
+        </ul>
+        <hr>
+    </div>
+
+    <script type="text/javascript">
+     //创建Vue实例,得到 ViewModel
+     const vm = new Vue({
+            el: '#app',
+            data: {
+                keyWord:'',
+                persons:[
+                    {id:'001', name:'马冬梅', age:18, sex:'女'},
+                    {id:'002', name:'周冬雨', age:19, sex:'女'},
+                    {id:'003', name:'周杰伦', age:20, sex:'男'},
+                    {id:'004', name:'温兆伦', age:21, sex:'男'}
+                ],
+                afterfiltPersons:[]
+            },
+            methods: {
+                
+            },
+            watch:{
+                // keyWord:{
+                //     // 必须立即执行handler函数
+                //     immediate:true,
+                //     handler(value) {
+                //         // 更新数据
+                //         this.afterfiltPersons = this.persons
+                //         this.afterfiltPersons = this.persons.filter((p) => {
+                //             return p.name.indexOf(value) !== -1
+                //         })
+                //     }
+                // }
+            },
+            computed:{
+                filtPersons() {
+                    return this.persons.filter((p) => {
+                        return p.name.indexOf(this.keyWord) !== -1
+                    })
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

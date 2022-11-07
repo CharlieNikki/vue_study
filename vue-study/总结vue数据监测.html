@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script type="text/javascript" src="../js/vue.js"></script> <!-- vue 路径-->
+</head>
+
+<body>
+    <!-- 
+
+     -->
+    <div id="app">
+        <!-- 
+            Vue监视数据的原理：
+                1. Vue会监视data中所有层次的数据
+                2. 如何监测对象中的数据？
+                    通过setter实现监视，且要在new Vue时就传入要监测的数据
+                    - 对象中后追加的属性，Vue默认不做响应式处理
+                    - 若需给后添加的属性做响应式，请使用如下API：
+                        Vue.set(target, propertyName/index, value)或
+                        vm.$set(target, propertyName/index, value)
+                3. 如何监测数组中的数据？
+                    通过包裹数组更新元素的方法实现，本质就是做了两件事情：
+                        - 调用原生对应的方法对数组进行更新
+                        - 重新解析模板，进而更新页面
+                4. 在Vue修改数组中的某个元素一定要使用以下方法：
+                    - 使用这些API：push(), pop(), shift(), unshift(), 
+                                  splice(), sort(), reverse()
+                    - Vue.set() 或 vm.$set()
+                特别注意：
+                    Vue.set() 和 vm.$set()不能够给vm或vm的根数据对象添加属性！
+         -->
+        <h1>Student Information</h1>
+
+        <button @click="studen  t.age++">age +1</button>
+        <button @click="addSex()">add sex (default:male)</button>
+        <button @click="addFriend()">shift a friend</button>
+        <button @click="updateFirstFriendName()">update friend's name : Charlie</button>
+        <button @click="addHobby()">add a hobby</button>
+        <button @click="updateFirstHobby()">update index:0 hobby to drive car</button>
+        <button @click="removeSmoking()">removeSmoking</button>
+
+        <h3>name-->{{student.name}}</h3>
+        <h3>age-->{{student.age}}</h3>
+        <h3 v-if="student.sex">sex-->{{student.sex}}</h3>
+        <h3>hobby:</h3>
+        <ul>
+            <li v-for="(h, index) in student.hobby" :key="index">
+                {{h}}
+            </li>
+        </ul>
+        <h3>friends:</h3>
+        <ul>
+            <li v-for="(f, index) in student.friends" :key="index">
+                {{f}}
+            </li>
+        </ul>
+    </div>
+
+    <script type="text/javascript">
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                student: {
+                    name: 'tom',
+                    age: 18,
+                    hobby: ['smoking', 'drinking', 'head cut'],
+                    friends: [{
+                            name: 'jerry',
+                            age: 19
+                        },
+                        {
+                            name: 'tony',
+                            age: 20
+                        }
+                    ]
+                }
+            },
+            methods: {
+                addSex() {
+                    this.$set(this.student, 'sex', 'male')
+                },
+                addFriend() {
+                    this.student.friends.unshift({
+                        name:'Charlie',
+                        age:22
+                    })
+                },
+                updateFirstFriendName() {
+                    this.student.friends[0].name = '11111'
+                },
+                addHobby() {
+                    this.student.hobby.push('lol')
+                },
+                updateFirstHobby() {
+                    // this.student.hobby.splice(0, 1, 'drive car')
+                    this.$set(this.student.hobby, 0, 'driving car')
+                },
+                removeSmoking() {
+                    this.student.hobby = this.student.hobby.filter((h) => {
+                        return h != 'smoking'
+                    })
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

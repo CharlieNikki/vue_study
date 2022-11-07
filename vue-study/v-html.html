@@ -11,14 +11,27 @@
 
 <body>
     <div id="app">
-        
+        <!-- 
+            v-html指令：
+                1. 作用：向执行节点中渲染包含html结构的内瓤
+                2. 与插值语法的区别：
+                    - v-html会替换掉节点中的所有内容，{{xx}}则不会
+                    - v-html可以识别html结构
+                3. 严重注意：v-html有安全性问题
+                    - 在网站上动态渲染html是非常危险的，容易导致xss攻击
+                    - 一定要在可信的内容上使用v-html，永远不要使用在用户提交的内容上！
+         -->
+        <div>hello, {{name}}</div>
+        <div v-text="str"></div>
+        <div v-html="str"></div>
     </div>
 
     <script type="text/javascript">
         var vm = new Vue({
             el: '#app',
             data: {
-
+                name:'Charlie',
+                str:'<h3>hello!!!</h3>'
             },
             methods: {
 

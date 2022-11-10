@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>非单文件组件的基本使用</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+
+<body>
+    <!-- 
+        Vue中使用组件的三大步骤：
+            1. 定义组件(创建组件)
+            2. 注册组件
+            3. 使用组件(写组件标签)
+
+        如何定义一个组件
+            使用Vue.extend(options)创建，其中options和new Vue(options)时传入的options几乎一样，但区别如下：
+                1. el不要写，为什么？
+                    最终所有的组件都要经过一个vm的管理，由vm中的el决定服务哪个容器
+                2. data必须写成函数，为什么？
+                    避免组件被复用时，数据存在引用关系
+                备注：
+                    使用template可以配置组件结构
+        
+        如何注册组件？
+            1. 局部注册
+                靠new Vue的时候传入components选项
+            2. 全局注册
+                靠Vue.component('组件名', 组件)
+        
+        编写组件标签
+            <school></school>
+     -->
+    <div id="app">
+
+    </div>
+
+    <script type="text/javascript">
+        // 定义组件时，一定不要写el配置项，因为最终所有的组件都要被一个vm管理，由vm决定谁调用谁
+        const school = Vue.extend({
+            data() {
+                return {
+                    schoolName: '地大',
+                    address: '湖北武汉'
+                }
+            }
+        })
+
+        const student = Vue.extend({
+            data() {
+                return {
+                    studentName: '张三',
+                    age: 18
+                }
+            }
+        })
+
+        var vm = new Vue({
+            el: '#app',
+            conponents: {
+                school,
+                student
+            }
+        });
+    </script>
+</body>
+
+</html>
